@@ -54,8 +54,8 @@ namespace DamnedWorkshop
         {
             LoadSettings();
             SetButtons();
-            directory = damnedFiles.directory;
-            damnedDirectoryStringLabel.Text = damnedFiles.directory;
+            directory = damnedFiles.Directory;
+            damnedDirectoryStringLabel.Text = damnedFiles.Directory;
             toolTipPublicTestPatchTesting.SetToolTip(publicTestPatchTestingButton, TOOLTIP_TEST_PATCH_TESTING_TEXT);
             toolTipPublicTestPatchStable.SetToolTip(publicTestPatchStableButton, TOOLTIP_TEST_PATCH_STABLE_TEXT);
         }

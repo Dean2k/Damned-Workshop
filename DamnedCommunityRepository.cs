@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic; 
+﻿using System.Collections.Generic;
 
 public class Stage
 {
@@ -9,10 +8,7 @@ public class Stage
     public string Date { get; set; }
 }
 
-
-
 public class CommunityRepository
 {
     public List<Stage> Stages { get; set; }
 }
-

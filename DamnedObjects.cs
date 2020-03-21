@@ -3,14 +3,14 @@ using System.IO;
 
 public class DamnedObjects
 {
-    private string directory;
-    public string objectsDirectory
+    private readonly string directory;
+    public string ObjectsDirectory
     {
         get;
         private set;
     }
 
-    public string[] objects
+    public string[] Objects
     {
         get;
         private set;
@@ -19,9 +19,9 @@ public class DamnedObjects
 	public DamnedObjects(string rootDirectory)
 	{
         this.directory = rootDirectory;
-        objectsDirectory = FindObjectDirectory();
+        ObjectsDirectory = FindObjectDirectory();
 
-        if (objectsDirectory == String.Empty)
+        if (ObjectsDirectory == String.Empty)
         {
             CreateObjectsDirectory();
         }
@@ -32,23 +32,23 @@ public class DamnedObjects
 
     private void CreateObjectsDirectory()
     {
-        objectsDirectory = Path.Combine(directory, "DamnedData", "Resources", "Objects");
-        Directory.CreateDirectory(objectsDirectory);
+        ObjectsDirectory = Path.Combine(directory, "DamnedData", "Resources", "Objects");
+        Directory.CreateDirectory(ObjectsDirectory);
     }
 
     private void SetObjects()
     {
-        if (!Directory.Exists(objectsDirectory))
+        if (!Directory.Exists(ObjectsDirectory))
         {
             return;
         }
 
-        FileInfo[] objectsList = new DirectoryInfo(objectsDirectory).GetFiles("*.object", SearchOption.TopDirectoryOnly);
-        objects = new string[objectsList.Length];
+        FileInfo[] objectsList = new DirectoryInfo(ObjectsDirectory).GetFiles("*.object", SearchOption.TopDirectoryOnly);
+        Objects = new string[objectsList.Length];
 
-        for (int i = 0; i < objects.Length; i++)
+        for (int i = 0; i < Objects.Length; i++)
         {
-            objects[i] = objectsList[i].Name;
+            Objects[i] = objectsList[i].Name;
         }
 
     }

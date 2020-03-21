@@ -1,54 +1,50 @@
 ﻿using System;
-using System.IO;
-using System.IO.Compression;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 
 // A wrapper class that makes dealing with the Damned filesystem easy. This will become very useful.
 // Not everything is used as of now but when we need them, we have them! :)
 
-
 public class DamnedFiles
 {
-
-    public string directory
+    public string Directory
     {
         get;
         private set;
     }
 
-    public DamnedMaps damnedMaps
+    public DamnedMaps DamnedMaps
     {
         get;
         private set;
     }
 
-    public DamnedSounds damnedSounds
+    public DamnedSounds DamnedSounds
     {
         get;
         private set;
     }
 
-    public DamnedObjects damnedObjects
+    public DamnedObjects DamnedObjects
     {
         get;
         private set;
     }
 
-    public DamnedImages damnedImages
-    {
-        get;
-        private set;
-    }
-    
-
-    public string[] damnedDirectories
+    public DamnedImages DamnedImages
     {
         get;
         private set;
     }
 
-    public string[] damnedDirectoriesPath
+    public string[] DamnedDirectories
+    {
+        get;
+        private set;
+    }
+
+    public string[] DamnedDirectoriesPath
     {
         get;
         private set;
@@ -56,33 +52,29 @@ public class DamnedFiles
 
     public DamnedFiles(string rootDirectory)
     {
-
-        this.directory = rootDirectory;
+        this.Directory = rootDirectory;
         SetDirectories();
     }
 
-
     public void Load()
     {
-        damnedMaps = new DamnedMaps(directory);
-        damnedObjects = new DamnedObjects(directory);
-        damnedSounds = new DamnedSounds(directory);
-        damnedImages = new DamnedImages(directory, damnedMaps, damnedObjects);
+        DamnedMaps = new DamnedMaps(Directory);
+        DamnedObjects = new DamnedObjects(Directory);
+        DamnedSounds = new DamnedSounds(Directory);
+        DamnedImages = new DamnedImages(Directory, DamnedMaps, DamnedObjects);
     }
 
-
-     private void SetDirectories()
+    private void SetDirectories()
     {
-        DirectoryInfo[] directories = new DirectoryInfo(directory).GetDirectories("*", SearchOption.AllDirectories);
-        damnedDirectoriesPath = new string[directories.Length];
-        damnedDirectories = new string[directories.Length];
+        DirectoryInfo[] directories = new DirectoryInfo(Directory).GetDirectories("*", SearchOption.AllDirectories);
+        DamnedDirectoriesPath = new string[directories.Length];
+        DamnedDirectories = new string[directories.Length];
 
         for (int i = 0; i < directories.Length; i++)
         {
-            damnedDirectories[i] = directories[i].Name;
-            damnedDirectoriesPath[i] = directories[i].FullName;
+            DamnedDirectories[i] = directories[i].Name;
+            DamnedDirectoriesPath[i] = directories[i].FullName;
         }
-
     }
 
     public bool Check()
@@ -101,9 +93,9 @@ public class DamnedFiles
         {
             string currentFolderLookingFor = foldersToLookFor[i];
 
-            for (int k = 0; k < damnedDirectories.Length; k++)
+            for (int k = 0; k < DamnedDirectories.Length; k++)
             {
-                string currentFolderFound = damnedDirectories[k];
+                string currentFolderFound = DamnedDirectories[k];
 
                 if (currentFolderLookingFor == currentFolderFound)
                 {
@@ -125,15 +117,15 @@ public class DamnedFiles
     public void Refresh()
     {
         SetDirectories();
-        damnedMaps = new DamnedMaps(directory);
-        damnedObjects = new DamnedObjects(directory);
-        damnedSounds = new DamnedSounds(directory);
-        damnedImages = new DamnedImages(directory, damnedMaps, damnedObjects);
+        DamnedMaps = new DamnedMaps(Directory);
+        DamnedObjects = new DamnedObjects(Directory);
+        DamnedSounds = new DamnedSounds(Directory);
+        DamnedImages = new DamnedImages(Directory, DamnedMaps, DamnedObjects);
     }
 
     private bool CheckForDamnedExecutable()
     {
-        FileInfo[] files = new DirectoryInfo(directory).GetFiles("*.exe", SearchOption.TopDirectoryOnly);
+        FileInfo[] files = new DirectoryInfo(Directory).GetFiles("*.exe", SearchOption.TopDirectoryOnly);
         bool found = false;
 
         for (int i = 0; i < files.Length; i++)
@@ -148,7 +140,6 @@ public class DamnedFiles
         return found;
     }
 
-
     public static void CleanUpNewFiles(DamnedFiles oldFiles, DamnedFiles newFiles)
     {
         CleanUpAddedDirectories(oldFiles, newFiles);
@@ -157,11 +148,10 @@ public class DamnedFiles
 
     private static void CleanUpAddedDirectories(DamnedFiles oldFiles, DamnedFiles newFiles)
     {
-        DirectoryInfo[] oldInfo = new DirectoryInfo(oldFiles.directory).GetDirectories("*", SearchOption.AllDirectories);
-        DirectoryInfo[] newInfo = new DirectoryInfo(newFiles.directory).GetDirectories("*", SearchOption.AllDirectories);
+        DirectoryInfo[] oldInfo = new DirectoryInfo(oldFiles.Directory).GetDirectories("*", SearchOption.AllDirectories);
+        DirectoryInfo[] newInfo = new DirectoryInfo(newFiles.Directory).GetDirectories("*", SearchOption.AllDirectories);
         List<string> foldersToDelete = new List<string>();
         bool foundMatchingDirectory;
-
 
         for (int i = 0; i < newInfo.Length; i++)
         {
@@ -188,16 +178,14 @@ public class DamnedFiles
 
         for (int i = 0; i < foldersToDelete.Count; i++)
         {
-            Directory.Delete(foldersToDelete[i], true);
-
+            System.IO.Directory.Delete(foldersToDelete[i], true);
         }
     }
-    
 
     private static void CleanUpAddedFiles(DamnedFiles oldFiles, DamnedFiles newFiles)
     {
-        FileInfo[] oldInfo = new DirectoryInfo(oldFiles.directory).GetFiles("*", SearchOption.AllDirectories);
-        FileInfo[] newInfo = new DirectoryInfo(newFiles.directory).GetFiles("*", SearchOption.AllDirectories);
+        FileInfo[] oldInfo = new DirectoryInfo(oldFiles.Directory).GetFiles("*", SearchOption.AllDirectories);
+        FileInfo[] newInfo = new DirectoryInfo(newFiles.Directory).GetFiles("*", SearchOption.AllDirectories);
         bool foundMatchingFile;
         List<string> filesToDelete = new List<string>();
 
@@ -226,10 +214,8 @@ public class DamnedFiles
         for (int i = 0; i < filesToDelete.Count; i++)
         {
             File.Delete(filesToDelete[i]);
-
         }
     }
-
 
     // Creates a temp directory in the temp folder and returns a path to that temp folder
     public static string CreateTempWorkshopDirectory()
@@ -239,16 +225,15 @@ public class DamnedFiles
         string tempPath = Path.GetTempPath();
         string workshopTempPath = Path.Combine(tempPath, tempFolderName);
 
-        if (Directory.Exists(workshopTempPath))
+        if (System.IO.Directory.Exists(workshopTempPath))
         {
-            Directory.Delete(workshopTempPath, true);
+            System.IO.Directory.Delete(workshopTempPath, true);
         }
 
-        Directory.CreateDirectory(workshopTempPath);
+        System.IO.Directory.CreateDirectory(workshopTempPath);
 
         return workshopTempPath;
     }
-
 
     public static void DeleteWorkshopTempDirectories()
     {
@@ -257,10 +242,9 @@ public class DamnedFiles
 
         for (int i = 0; i < info.Length; i++)
         {
-            Directory.Delete(info[i].FullName, true);
+            System.IO.Directory.Delete(info[i].FullName, true);
         }
     }
-
 
     public static string CreateTempFileInTempDirectory(string sourceFilePath)
     {
@@ -271,7 +255,6 @@ public class DamnedFiles
         return destFilePath;
     }
 
-
     public static bool DownloadFile(string link, string fileName)
     {
         try
@@ -280,9 +263,7 @@ public class DamnedFiles
             {
                 client.DownloadFile(link, fileName);
             }
-
         }
-
         catch (WebException)
         {
             return false;
@@ -290,7 +271,4 @@ public class DamnedFiles
 
         return true;
     }
-    
 }
-
-

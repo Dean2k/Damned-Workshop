@@ -1,46 +1,43 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 public class DamnedSounds
 {
+    private readonly string directory;
 
-    private string directory;
-    public string soundsDirectory
-    {
-        get;
-        private set;
-
-    }
-
-    public string[] sounds
+    public string SoundsDirectory
     {
         get;
         private set;
     }
 
-	public DamnedSounds(string rootDirectory)
-	{
+    public string[] Sounds
+    {
+        get;
+        private set;
+    }
+
+    public DamnedSounds(string rootDirectory)
+    {
         this.directory = rootDirectory;
-        soundsDirectory = FindSoundsDirectory();
+        SoundsDirectory = FindSoundsDirectory();
         SetSounds();
-	}
+    }
 
     private void SetSounds()
     {
-        if (!Directory.Exists(soundsDirectory))
+        if (!Directory.Exists(SoundsDirectory))
         {
             return;
         }
 
-        FileInfo[] soundsList = new DirectoryInfo(soundsDirectory).GetFiles("*.ogg", SearchOption.AllDirectories);
-        sounds = new string[soundsList.Length];
+        FileInfo[] soundsList = new DirectoryInfo(SoundsDirectory).GetFiles("*.ogg", SearchOption.AllDirectories);
+        Sounds = new string[soundsList.Length];
 
-        for (int i = 0; i < sounds.Length; i++)
+        for (int i = 0; i < Sounds.Length; i++)
         {
-            sounds[i] = soundsList[i].Name;
+            Sounds[i] = soundsList[i].Name;
         }
     }
-
 
     private string FindSoundsDirectory()
     {
@@ -55,7 +52,6 @@ public class DamnedSounds
             {
                 returnSoundsDirectory = info[i].FullName;
                 break;
-
             }
         }
 

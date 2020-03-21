@@ -6,21 +6,21 @@ using System;
 public class DamnedMaps
 {
 
-    private string directory;
-    public string stagesAndScenesDirectory
+    private readonly string directory;
+    public string StagesAndScenesDirectory
     {
         get;
         private set;
     }
 
-    public string[] stages
+    public string[] Stages
     {
         get;
         private set;
 
     }
 
-    public string[] scenes
+    public string[] Scenes
     {
         get;
         private set;
@@ -38,12 +38,12 @@ public class DamnedMaps
 
     private void SetStages()
     {
-        if (!Directory.Exists(stagesAndScenesDirectory))
+        if (!Directory.Exists(StagesAndScenesDirectory))
         {
             return;
         }
 
-        FileInfo[] stagesList = new DirectoryInfo(stagesAndScenesDirectory).GetFiles("*.stage", SearchOption.TopDirectoryOnly);
+        FileInfo[] stagesList = new DirectoryInfo(StagesAndScenesDirectory).GetFiles("*.stage", SearchOption.TopDirectoryOnly);
         List<string> stages = new List<string>();
 
         for (int i = 0; i < stagesList.Length; i++)
@@ -56,7 +56,7 @@ public class DamnedMaps
             stages.Add(stagesList[i].FullName);
         }
 
-        this.stages = stages.ToArray();
+        this.Stages = stages.ToArray();
     }
 
     public void Refresh()
@@ -67,12 +67,12 @@ public class DamnedMaps
 
     private void SetScenes()
     {
-        if (!Directory.Exists(stagesAndScenesDirectory))
+        if (!Directory.Exists(StagesAndScenesDirectory))
         {
             return;
         }
 
-        FileInfo[] scenesList = new DirectoryInfo(stagesAndScenesDirectory).GetFiles("*.scene", SearchOption.TopDirectoryOnly);
+        FileInfo[] scenesList = new DirectoryInfo(StagesAndScenesDirectory).GetFiles("*.scene", SearchOption.TopDirectoryOnly);
         List<string> scenes = new List<string>();
 
         for (int i = 0; i < scenesList.Length; i++)
@@ -85,7 +85,7 @@ public class DamnedMaps
             scenes.Add(scenesList[i].FullName);
         }
 
-        this.scenes = scenes.ToArray();
+        this.Scenes = scenes.ToArray();
     }
 
     // This can be written with an enum instead
@@ -94,15 +94,15 @@ public class DamnedMaps
         string nameWithoutExtension = Path.GetFileNameWithoutExtension(stageName);
         string returnString = String.Empty;
 
-        for (int i = 0; i < stages.Length; i++)
+        for (int i = 0; i < Stages.Length; i++)
         {
-            string foundStage = Path.GetFileNameWithoutExtension(stages[i]);
+            string foundStage = Path.GetFileNameWithoutExtension(Stages[i]);
 
             int result = String.Compare(nameWithoutExtension, foundStage, true);
 
             if (result > 0)
             {
-                returnString = stages[i];
+                returnString = Stages[i];
                 break;
             }
         }
@@ -114,13 +114,13 @@ public class DamnedMaps
     {
         string stageToFind = Path.GetFileName(stageName);
 
-        for (int i = 0; i < stages.Length; i++)
+        for (int i = 0; i < Stages.Length; i++)
         {
-            string stageToRemove = Path.GetFileName(stages[i]);
+            string stageToRemove = Path.GetFileName(Stages[i]);
 
             if (stageToRemove == stageToFind)
             {
-                File.Delete(stages[i]);
+                File.Delete(Stages[i]);
                 break;
             }
         }
@@ -131,13 +131,13 @@ public class DamnedMaps
     {
         string sceneToFind = Path.GetFileName(sceneName);
 
-        for (int i = 0; i < scenes.Length; i++)
+        for (int i = 0; i < Scenes.Length; i++)
         {
-            string sceneToRemove = Path.GetFileName(scenes[i]);
+            string sceneToRemove = Path.GetFileName(Scenes[i]);
 
             if (sceneToRemove == sceneToFind)
             {
-                File.Delete(scenes[i]);
+                File.Delete(Scenes[i]);
                 break;
             }
         }
@@ -148,9 +148,9 @@ public class DamnedMaps
     {
         bool found = false;
 
-        for (int i = 0; i < stages.Length; i++)
+        for (int i = 0; i < Stages.Length; i++)
         {
-            string stageToFind = Path.GetFileName(stages[i]);
+            string stageToFind = Path.GetFileName(Stages[i]);
 
             if (stageName == stageToFind)
             {
@@ -172,7 +172,7 @@ public class DamnedMaps
 
             if (stagesAndScenesDirectory == "Stages")
             {
-                this.stagesAndScenesDirectory = info[i].FullName;
+                this.StagesAndScenesDirectory = info[i].FullName;
                 break;
             }
 

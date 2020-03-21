@@ -28,7 +28,7 @@ namespace DamnedWorkshop
         {
             this.form = form;
             damnedFiles = files;
-            damnedStages = damnedFiles.damnedMaps;
+            damnedStages = damnedFiles.DamnedMaps;
             InitializeComponent();
         }
 
@@ -136,7 +136,7 @@ If the selected stage is not installed when clicking on ""Modify Stages"", it wi
 
                         if (!package.Check(archiveLocation))
                         {
-                            string reason = $"Failed to prepare the stage archive {archiveToDownload} for installation:\n\n{package.reasonForFailedCheck}";
+                            string reason = $"Failed to prepare the stage archive {archiveToDownload} for installation:\n\n{package.ReasonForFailedCheck}";
                             MessageBox.Show(reason, "Failed to prepare the stage archive.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Directory.Delete(workshopTempPath, true);
                             return;
@@ -146,13 +146,13 @@ If the selected stage is not installed when clicking on ""Modify Stages"", it wi
 
                         DamnedNewStage newStage = new DamnedNewStage()
                         {
-                            loadingImagePath = package.loadingImagePath,
-                            lobbyImageButtonHighlightedPath = package.lobbyButtonImageHighlightedPath,
-                            lobbyImageButtonPath = package.lobbyButtonImagePath,
-                            newScenePath = package.scenePath,
-                            newStagePath = package.stagePath,
-                            newObjectsPath = package.objectsPath,
-                            hasObjects = package.hasObjects
+                            LoadingImagePath = package.LoadingImagePath,
+                            LobbyImageButtonHighlightedPath = package.LobbyButtonImageHighlightedPath,
+                            LobbyImageButtonPath = package.LobbyButtonImagePath,
+                            NewScenePath = package.ScenePath,
+                            NewStagePath = package.StagePath,
+                            NewObjectsPath = package.objectsPath,
+                            HasObjects = package.HasObjects
                         };
 
                         newStagesList.Add(newStage);
@@ -164,10 +164,10 @@ If the selected stage is not installed when clicking on ""Modify Stages"", it wi
                         string stageToFind = $"{cellsInRow[COLUMN_NAME].Value.ToString()}.stage".Replace(" ", "_");
                         string sceneToFind = $"{cellsInRow[COLUMN_NAME].Value.ToString()}.scene".Replace(" ", "_");
                         DamnedRemoveStage removeStage = new DamnedRemoveStage();
-                        string pathToStage = Path.Combine(damnedStages.stagesAndScenesDirectory, stageToFind);
-                        string pathToScene = Path.Combine(damnedStages.stagesAndScenesDirectory, sceneToFind);
-                        removeStage.stagePath = pathToStage;
-                        removeStage.scenePath = pathToScene;
+                        string pathToStage = Path.Combine(damnedStages.StagesAndScenesDirectory, stageToFind);
+                        string pathToScene = Path.Combine(damnedStages.StagesAndScenesDirectory, sceneToFind);
+                        removeStage.StagePath = pathToStage;
+                        removeStage.ScenePath = pathToScene;
                         removeStagesList.Add(new DamnedRemoveStage(removeStage));
 
                     }
@@ -187,11 +187,11 @@ If the selected stage is not installed when clicking on ""Modify Stages"", it wi
 
             Cursor.Current = Cursors.WaitCursor;
             string tempDirectory = DamnedFiles.CreateTempWorkshopDirectory();
-            string terrorZipFile = damnedFiles.damnedImages.terrorZipFile;
+            string terrorZipFile = damnedFiles.DamnedImages.terrorZipFile;
             ZipFile.ExtractToDirectory(terrorZipFile, tempDirectory);
-            string tempTerrorZipFileLocation = damnedFiles.damnedImages.GetLayoutFileFromZip(tempDirectory);
-            damnedFiles.damnedImages.UpdateXmlFiles(tempTerrorZipFileLocation, removeStagesList.ToArray(), newStagesList.ToArray());
-            string destination = Path.Combine(damnedFiles.damnedImages.guiDirectory, "Terror.zip");
+            string tempTerrorZipFileLocation = damnedFiles.DamnedImages.GetLayoutFileFromZip(tempDirectory);
+            damnedFiles.DamnedImages.UpdateXmlFiles(tempTerrorZipFileLocation, removeStagesList.ToArray(), newStagesList.ToArray());
+            string destination = Path.Combine(damnedFiles.DamnedImages.guiDirectory, "Terror.zip");
             File.Delete(destination);
             ZipFile.CreateFromDirectory(tempDirectory, destination);
             Directory.Delete(tempDirectory, true);

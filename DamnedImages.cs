@@ -265,19 +265,19 @@ public class DamnedImages
 
     private void SortImages(DamnedRemoveStage[] stagesToRemove, DamnedNewStage[] newMaps)
     {
-        List<string> oldStagesSorted = new List<string>(damnedStages.stages);
+        List<string> oldStagesSorted = new List<string>(damnedStages.Stages);
         oldStagesSorted.Sort();
 
         for (int i = 0; i < stagesToRemove.Length; i++)
         {
             FileInfo[] info = new DirectoryInfo(terrorImagesDirectory).GetFiles("stage_*.png", SearchOption.TopDirectoryOnly);
-            damnedStages.RemoveStage(stagesToRemove[i].stagePath);
-            damnedStages.RemoveScene(stagesToRemove[i].scenePath);
+            damnedStages.RemoveStage(stagesToRemove[i].StagePath);
+            damnedStages.RemoveScene(stagesToRemove[i].ScenePath);
 
-            string mapToRemove = stagesToRemove[i].stagePath;
+            string mapToRemove = stagesToRemove[i].StagePath;
             int oldImageIndex = oldStagesSorted.BinarySearch(mapToRemove);
             string imageNameToDelete = String.Format("stage_{0}.png", oldImageIndex);
-            string stageNameWithoutExtension = Path.GetFileNameWithoutExtension(stagesToRemove[i].stagePath);
+            string stageNameWithoutExtension = Path.GetFileNameWithoutExtension(stagesToRemove[i].StagePath);
             string loadingImageToDelete = String.Format("loading_{0}.jpg", stageNameWithoutExtension);
             string imageHighlightedButtonDelete = String.Format("DamnedStages_{0}.png", stageNameWithoutExtension.ToLower().Replace("_", String.Empty));
 
@@ -297,13 +297,13 @@ public class DamnedImages
         for (int i = 0; i < newMaps.Length; i++)
         {
             FileInfo[] info = new DirectoryInfo(terrorImagesDirectory).GetFiles("stage_*.png", SearchOption.TopDirectoryOnly);
-            string newStageName = Path.GetFileName(newMaps[i].newStagePath);
-            string newStageNamePath = Path.Combine(damnedStages.stagesAndScenesDirectory, newStageName);
-            string newSceneName = Path.GetFileName(newMaps[i].newScenePath);
-            string newSceneNamePath = Path.Combine(damnedStages.stagesAndScenesDirectory, newSceneName);
+            string newStageName = Path.GetFileName(newMaps[i].NewStagePath);
+            string newStageNamePath = Path.Combine(damnedStages.StagesAndScenesDirectory, newStageName);
+            string newSceneName = Path.GetFileName(newMaps[i].NewScenePath);
+            string newSceneNamePath = Path.Combine(damnedStages.StagesAndScenesDirectory, newSceneName);
             oldStagesSorted.Add(newStageNamePath);
-            File.Copy(newMaps[i].newStagePath, newStageNamePath);
-            File.Copy(newMaps[i].newScenePath, newSceneNamePath);
+            File.Copy(newMaps[i].NewStagePath, newStageNamePath);
+            File.Copy(newMaps[i].NewScenePath, newSceneNamePath);
             oldStagesSorted.Sort();
 
             int newImageIndex = oldStagesSorted.BinarySearch(newStageNamePath);
@@ -320,7 +320,7 @@ public class DamnedImages
                     File.Delete(newImagePath);
                 }
 
-                File.Copy(newMaps[i].lobbyImageButtonPath, newImagePath);
+                File.Copy(newMaps[i].LobbyImageButtonPath, newImagePath);
 
                 string newLoadingImageName = newStageName.Remove(newStageName.IndexOf(".", 6));
                 newLoadingImageName = String.Format("loading_{0}.jpg", newLoadingImageName);
@@ -331,7 +331,7 @@ public class DamnedImages
                     File.Delete(newLoadingImageNamePath);
                 }
 
-                File.Copy(newMaps[i].loadingImagePath, newLoadingImageNamePath);
+                File.Copy(newMaps[i].LoadingImagePath, newLoadingImageNamePath);
 
                 string newLobbyHighlightedButton = newStageName.ToLower().Replace("_", String.Empty);
                 newLobbyHighlightedButton = newLobbyHighlightedButton.Remove(newLobbyHighlightedButton.IndexOf("."), 6);
@@ -343,11 +343,11 @@ public class DamnedImages
                     File.Delete(newLobbyHighlightedButtonPath);
                 }
 
-                File.Copy(newMaps[i].lobbyImageButtonHighlightedPath, newLobbyHighlightedButtonPath);
+                File.Copy(newMaps[i].LobbyImageButtonHighlightedPath, newLobbyHighlightedButtonPath);
 
-                if (newMaps[i].hasObjects)
+                if (newMaps[i].HasObjects)
                 {
-                    damnedObjects.CopyObjects(newMaps[i].newObjectsPath.ToArray(), damnedObjects.objectsDirectory);
+                    damnedObjects.CopyObjects(newMaps[i].NewObjectsPath.ToArray(), damnedObjects.ObjectsDirectory);
                 }
 
                 damnedStages.Refresh();
@@ -379,7 +379,7 @@ public class DamnedImages
 
     private void UpdateStagesLayoutFile(string layoutFile)
     {
-        List<string> mapsSorted = new List<string>(damnedStages.stages);
+        List<string> mapsSorted = new List<string>(damnedStages.Stages);
         mapsSorted.Sort();
         XmlDocument doc = new XmlDocument();
         XmlElement rootElement = doc.CreateElement("MyGUI");
@@ -536,12 +536,12 @@ public class DamnedImages
 
         doc.AppendChild(myGuiElement);
 
-        List<string> mapsSorted = new List<string>(damnedStages.stages);
+        List<string> mapsSorted = new List<string>(damnedStages.Stages);
         mapsSorted.Sort();
 
-        for (int i = 0; i < damnedStages.stages.Length; i++)
+        for (int i = 0; i < damnedStages.Stages.Length; i++)
         {
-            string stageNamePath = Path.GetFileName(damnedStages.stages[i]);
+            string stageNamePath = Path.GetFileName(damnedStages.Stages[i]);
             string stage = stageNamePath.ToLower().Replace("_", String.Empty);
             stage = stage.Remove(stage.IndexOf("."), 6);
 

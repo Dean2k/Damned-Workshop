@@ -117,27 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTipSetDamnedFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolTipSetDamnedFolder.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="toolTip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTip2.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>114, 17</value>
-  </metadata>
-  <metadata name="toolTipPublicTestPatchStable.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTipPublicTestPatchStable.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>211, 17</value>
-  </metadata>
-  <metadata name="toolTipPublicTestPatchTesting.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTipPublicTestPatchTesting.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>420, 17</value>
-  </metadata>
-  <metadata name="toolTipLatestOfficialPatch.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTipLatestOfficialPatch.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>635, 17</value>
-  </metadata>
-  <metadata name="toolTipCheckButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTipCheckButton.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>825, 17</value>
-  </metadata>
-  <metadata name="toolTipSelectBackupFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  </data>
+  <data name="toolTipSelectBackupFolder.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>1355, 17</value>
-  </metadata>
+  </data>
   <data name="buttonSelectBackupFolder.ToolTip" xml:space="preserve">
     <value>It is HIGHLY RECOMMENDED that you use this button.
 
@@ -146,45 +147,45 @@ This button opens up the file explorer for you to select a file location where y
 If you choose to not backup your game, then you will have to re-install the game through Steam if you want to downgrade back to 9heads latest official patch.
 </value>
   </data>
-  <metadata name="toolTipKeepPublicTestPatchStableCheckbox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTipKeepPublicTestPatchStableCheckbox.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 41</value>
-  </metadata>
+  </data>
   <data name="keepPublicTestPatchStableCheckbox.ToolTip" xml:space="preserve">
     <value>If this box is checked, then the downloaded patch will be extracted to a folder of your choice.
 
 The advantage of doing this is so you don't have to download the patch from the Github again which makes things faster if you switch patches often.</value>
   </data>
-  <metadata name="toolTipPublicTestPatchTestingCheckbox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTipPublicTestPatchTestingCheckbox.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>307, 41</value>
-  </metadata>
+  </data>
   <data name="keepPublicTestPatchTestingCheckbox.ToolTip" xml:space="preserve">
     <value>If this box is checked, then the downloaded patch will be extracted to a folder of your choice.
 
 The advantage of doing this is so you don't have to download the patch from the Github again which makes things faster if you switch patches often.</value>
   </data>
-  <metadata name="toolTipSetPublicTestPatchStableLocationButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTipSetPublicTestPatchStableLocationButton.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>743, 41</value>
-  </metadata>
-  <metadata name="toolTipSetPublicTestPatchTestingLocationButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1052, 41</value>
-  </metadata>
-  <metadata name="toolTipBackupAndCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1170, 17</value>
-  </metadata>
-  <data name="buttonBackUp.ToolTip" xml:space="preserve">
-    <value>Backsup your current selected Damned folder and then checks to make sure that it is valid. If the text is green, then you are ready to install the public test patch. If it is red, then you did not select the right folder.</value>
   </data>
-  <metadata name="toolTipRestoreButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTipSetPublicTestPatchTestingLocationButton.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>1052, 41</value>
+  </data>
+  <data name="toolTipBackupAndCheck.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>1170, 17</value>
+  </data>
+  <data name="buttonBackUp.ToolTip" xml:space="preserve">
+    <value>This will backup your current selected Damned folder and then will check to make sure that it is valid. If the text is green, then you are ready to install the public test patch. If it is red, then you did not select the right folder.</value>
+  </data>
+  <data name="toolTipRestoreButton.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>575, 41</value>
-  </metadata>
+  </data>
   <data name="buttonRestore.ToolTip" xml:space="preserve">
     <value>Restores your Damned backup from the folder that you have selected into the original folder where Damned is actually installed.
 
 This button also deletes any additional files that has come from the public test patch that is not in the base game.</value>
   </data>
-  <metadata name="toolTipOnlyCheckButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolTipOnlyCheckButton.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>985, 17</value>
-  </metadata>
+  </data>
   <data name="buttonOnlyCheck.ToolTip" xml:space="preserve">
     <value>Checks to see if you have a valid backup folder if you have already backed up your game at some point.
 

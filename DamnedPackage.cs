@@ -10,21 +10,21 @@ using System.Collections.Generic;
 public class DamnedPackage
 {
 
-    public string tempDirectory { get; private set; }
+    public string TempDirectory { get; private set; }
     private string zipArchivePath;
 
 
-    public string reasonForFailedCheck { get; private set; }
-    public int objectsCount { get; private set; }
+    public string ReasonForFailedCheck { get; private set; }
+    public int ObjectsCount { get; private set; }
 
-    public bool hasObjects { get; set; }
+    public bool HasObjects { get; set; }
     private bool packaging;
 
-    public string scenePath { get; set; }
-    public string stagePath { get; set; }
-    public string loadingImagePath { get; set; }
-    public string lobbyButtonImagePath { get; set; }
-    public string lobbyButtonImageHighlightedPath { get; set; }
+    public string ScenePath { get; set; }
+    public string StagePath { get; set; }
+    public string LoadingImagePath { get; set; }
+    public string LobbyButtonImagePath { get; set; }
+    public string LobbyButtonImageHighlightedPath { get; set; }
 
     public List<string> objectsPath;
 
@@ -37,12 +37,12 @@ public class DamnedPackage
     public bool Check(string zipArchivePath)
     {
         this.zipArchivePath = zipArchivePath;
-        hasObjects = false;
+        HasObjects = false;
 
         if (Path.GetExtension(zipArchivePath) != ".zip")
         {
             string archiveName = Path.GetFileName(zipArchivePath);
-            reasonForFailedCheck = String.Format("Check failed because \"{0}\" is not a .zip file. Please repackage your stage into a .zip file", archiveName);
+            ReasonForFailedCheck = String.Format("Check failed because \"{0}\" is not a .zip file. Please repackage your stage into a .zip file", archiveName);
             return false;
         }
 
@@ -65,7 +65,7 @@ public class DamnedPackage
 
     private bool CheckFiles()
     {
-        FileInfo[] files = new DirectoryInfo(tempDirectory).GetFiles("*", SearchOption.AllDirectories);
+        FileInfo[] files = new DirectoryInfo(TempDirectory).GetFiles("*", SearchOption.AllDirectories);
         bool success = true;
 
         for (int i = 0; i < files.Length; i++)
@@ -104,7 +104,7 @@ public class DamnedPackage
             else 
             {
                 success = false;
-                reasonForFailedCheck = String.Format("Check failed because \"{0}\" is not a .jpg, .png, .stage, .scene, or .object format.", fileName);
+                ReasonForFailedCheck = String.Format("Check failed because \"{0}\" is not a .jpg, .png, .stage, .scene, or .object format.", fileName);
                 break;
             }
         }
@@ -114,7 +114,7 @@ public class DamnedPackage
 
     private bool CheckDirectories()
     {
-        DirectoryInfo[] info = new DirectoryInfo(tempDirectory).GetDirectories("*", SearchOption.AllDirectories);
+        DirectoryInfo[] info = new DirectoryInfo(TempDirectory).GetDirectories("*", SearchOption.AllDirectories);
 
         string[] directoriesToCheck = new string[] { "DamnedData", "GUI", "Resources", "TerrorImages", "Stages" };
 
@@ -127,7 +127,7 @@ public class DamnedPackage
             
             if (directory == "Objects")
             {
-                hasObjects = true;
+                HasObjects = true;
                 continue;
             }
 
@@ -142,7 +142,7 @@ public class DamnedPackage
             if (!found)
             {
                 success = false;
-                reasonForFailedCheck = String.Format("Check failed because the directory \"{0}\" is not supposed to be in your zip archive", directory);
+                ReasonForFailedCheck = String.Format("Check failed because the directory \"{0}\" is not supposed to be in your zip archive", directory);
             }
         }
 
@@ -157,7 +157,7 @@ public class DamnedPackage
         if (directoryName != "Stages")
         {
             string stageName = Path.GetFileName(stagePath);
-            reasonForFailedCheck = String.Format("Check failed because \"{0}\" does not reside in the Stages directory", stageName);
+            ReasonForFailedCheck = String.Format("Check failed because \"{0}\" does not reside in the Stages directory", stageName);
             return false;
         }
 
@@ -165,7 +165,7 @@ public class DamnedPackage
 
         if (stages.Length > 2)
         {
-            reasonForFailedCheck = "Check failed because the Stages directory has more than 2 files in it. Only 1 scene and 1 file is allowed";
+            ReasonForFailedCheck = "Check failed because the Stages directory has more than 2 files in it. Only 1 scene and 1 file is allowed";
             return false;
         }
 
@@ -199,7 +199,7 @@ public class DamnedPackage
 
             if (!success)
             {
-                this.reasonForFailedCheck = reason;
+                this.ReasonForFailedCheck = reason;
             }
         }
 
@@ -244,7 +244,7 @@ public class DamnedPackage
             }
 
             string stageOrSceneName = Path.GetFileName(stageOrScene);
-            reasonForFailedCheck = String.Format("Check failed because \"{0}\" does not have its corresponding \"{1}{2}\" file in the same directory.", stageOrSceneName, stageOrScene, otherExtension);
+            ReasonForFailedCheck = String.Format("Check failed because \"{0}\" does not have its corresponding \"{1}{2}\" file in the same directory.", stageOrSceneName, stageOrScene, otherExtension);
             return false;
         }
 
@@ -260,7 +260,7 @@ public class DamnedPackage
         if (directoryName != "GUI" && directoryName != "TerrorImages")
         {
             string imageName = Path.GetFileName(imagePath);
-            reasonForFailedCheck = String.Format("Check failed because \"{0}\" does not reside in either the GUI directory or the TerrorImages directory.", imageName);
+            ReasonForFailedCheck = String.Format("Check failed because \"{0}\" does not reside in either the GUI directory or the TerrorImages directory.", imageName);
             return false;
         }
 
@@ -273,7 +273,7 @@ public class DamnedPackage
             if (dimensions.x != 300 && dimensions.y != 100 || dimensions.x != 900 && dimensions.y != 100)
             {
                 string imageName = Path.GetFileName(imagePath);
-                reasonForFailedCheck = String.Format("Check failed because the dimensions for the image \"{0}\" is not 300 X 100 or 900 X 100", imageName);
+                ReasonForFailedCheck = String.Format("Check failed because the dimensions for the image \"{0}\" is not 300 X 100 or 900 X 100", imageName);
                 return false;
             }
         }
@@ -285,7 +285,7 @@ public class DamnedPackage
             if (dimensions.x != 1920 && dimensions.y != 1080)
             {
                 string imageName = Path.GetFileName(imagePath);
-                reasonForFailedCheck = String.Format("Check failed because the dimensions for the image \"{0}\" is not 1920 X 1080", imageName);
+                ReasonForFailedCheck = String.Format("Check failed because the dimensions for the image \"{0}\" is not 1920 X 1080", imageName);
                 return false;
             }
         }
@@ -302,7 +302,7 @@ public class DamnedPackage
         if (directoryName != "Objects")
         {
             string objectName = Path.GetFileName(objectPath);
-            reasonForFailedCheck = String.Format("Check failed because object \"{0}\" does not reside in the Objects directory.", objectName);
+            ReasonForFailedCheck = String.Format("Check failed because object \"{0}\" does not reside in the Objects directory.", objectName);
             return false;
         }
 
@@ -313,8 +313,8 @@ public class DamnedPackage
     // Loads the variables from a zip file  into the DamnedMappingForm assuming that it is packaged correctly.
     public void Load()
     {
-        FileInfo[] info = new DirectoryInfo(tempDirectory).GetFiles("*", SearchOption.AllDirectories);
-        objectsCount = 0;
+        FileInfo[] info = new DirectoryInfo(TempDirectory).GetFiles("*", SearchOption.AllDirectories);
+        ObjectsCount = 0;
 
         for (int i = 0; i < info.Length; i++ )
         {
@@ -327,13 +327,13 @@ public class DamnedPackage
 
                 if (dimensions.x == 300 && dimensions.y == 100)
                 {
-                    lobbyButtonImagePath = fileNamePath;
+                    LobbyButtonImagePath = fileNamePath;
                 }
 
                 else if (dimensions.x == 900 && dimensions.y == 100)
                 {
 
-                    lobbyButtonImageHighlightedPath = fileNamePath;
+                    LobbyButtonImageHighlightedPath = fileNamePath;
                 }
             }
 
@@ -343,26 +343,26 @@ public class DamnedPackage
 
                 if (dimensions.x == 1920 && dimensions.y == 1080)
                 {
-                    loadingImagePath = fileNamePath;
+                    LoadingImagePath = fileNamePath;
                 }
             }
 
 
             else if (fileExtension == ".scene")
             {
-                scenePath = fileNamePath;
+                ScenePath = fileNamePath;
             }
 
             else if (fileExtension == ".stage")
             {
-                stagePath = fileNamePath;
+                StagePath = fileNamePath;
             }
 
 
             else if (fileExtension == ".object")
             {
                 objectsPath.Add(fileNamePath);
-                objectsCount++;
+                ObjectsCount++;
             }
         }
     }
@@ -374,7 +374,7 @@ public class DamnedPackage
         if (!packaging)
         {
             ZipFile.ExtractToDirectory(zipArchivePath, directoryPath);
-            tempDirectory = directoryPath;
+            TempDirectory = directoryPath;
             File.Delete(zipArchivePath);
         }
         
@@ -394,20 +394,20 @@ public class DamnedPackage
     // Too much work to write this. Probably a better way to do this.
     private void Package(DamnedNewStage newStage, string destination)
     {
-        tempDirectory = DamnedFiles.CreateTempWorkshopDirectory();
+        TempDirectory = DamnedFiles.CreateTempWorkshopDirectory();
         CreateDirectories();
-        DirectoryInfo[] info = new DirectoryInfo(tempDirectory).GetDirectories("*", SearchOption.AllDirectories);
+        DirectoryInfo[] info = new DirectoryInfo(TempDirectory).GetDirectories("*", SearchOption.AllDirectories);
 
-        string newStageNamePath = newStage.newStagePath;
+        string newStageNamePath = newStage.NewStagePath;
         string newStageName = Path.GetFileName(newStageNamePath);
-        string newSceneNamePath = newStage.newScenePath;
-        string newSceneName = Path.GetFileName(newStage.newScenePath);
-        string newLoadingImageNamePath = newStage.loadingImagePath;
+        string newSceneNamePath = newStage.NewScenePath;
+        string newSceneName = Path.GetFileName(newStage.NewScenePath);
+        string newLoadingImageNamePath = newStage.LoadingImagePath;
         string newLoadingImageName = Path.GetFileName(newLoadingImageNamePath);
-        string newLobbyButtonImagePath = newStage.lobbyImageButtonPath;
-        string newLobbyButtnImageName = Path.GetFileName(newStage.lobbyImageButtonPath);
-        string newLobbyButtonImageHighlightedPath = newStage.lobbyImageButtonHighlightedPath;
-        string newLobbyButtonImageHighlightedName = Path.GetFileName(newStage.lobbyImageButtonHighlightedPath);
+        string newLobbyButtonImagePath = newStage.LobbyImageButtonPath;
+        string newLobbyButtnImageName = Path.GetFileName(newStage.LobbyImageButtonPath);
+        string newLobbyButtonImageHighlightedPath = newStage.LobbyImageButtonHighlightedPath;
+        string newLobbyButtonImageHighlightedName = Path.GetFileName(newStage.LobbyImageButtonHighlightedPath);
 
         string stageAndScenePath = GetPath(info, "Stages");
         string guiPath = GetPath(info, "GUI");
@@ -428,11 +428,11 @@ public class DamnedPackage
         File.Copy(newLobbyButtonImageHighlightedPath, newPath);
         destination = Path.Combine(destination, newZipArchiveName);
 
-        if (newStage.hasObjects)
+        if (newStage.HasObjects)
         {
             CreateObjectsDirectory();
-            DamnedObjects damnedObjects = new DamnedObjects(tempDirectory);
-            damnedObjects.CopyObjects(newStage.newObjectsPath.ToArray(), damnedObjects.objectsDirectory);
+            DamnedObjects damnedObjects = new DamnedObjects(TempDirectory);
+            damnedObjects.CopyObjects(newStage.NewObjectsPath.ToArray(), damnedObjects.ObjectsDirectory);
         }
 
         if (File.Exists(destination))
@@ -447,13 +447,13 @@ public class DamnedPackage
 
             else
             {
-                Directory.Delete(tempDirectory, true);
+                Directory.Delete(TempDirectory, true);
                 return;
             }
         }
 
-        ZipFile.CreateFromDirectory(tempDirectory, destination);
-        Directory.Delete(tempDirectory, true);
+        ZipFile.CreateFromDirectory(TempDirectory, destination);
+        Directory.Delete(TempDirectory, true);
     }
 
     private string GetPath(DirectoryInfo[] info, string folderToFind)
@@ -476,21 +476,21 @@ public class DamnedPackage
 
     private void CreateDirectories()
     {
-        string directoryToMake = Path.Combine(tempDirectory, "DamnedData", "Resources", "Stages");
+        string directoryToMake = Path.Combine(TempDirectory, "DamnedData", "Resources", "Stages");
 
         if (!Directory.Exists(directoryToMake))
         {
             Directory.CreateDirectory(directoryToMake);
         }
 
-        directoryToMake = Path.Combine(tempDirectory, "DamnedData", "GUI");
+        directoryToMake = Path.Combine(TempDirectory, "DamnedData", "GUI");
 
         if (!Directory.Exists(directoryToMake))
         {
             Directory.CreateDirectory(directoryToMake);
         }
 
-        directoryToMake = Path.Combine(tempDirectory, "DamnedData", "GUI", "TerrorImages");
+        directoryToMake = Path.Combine(TempDirectory, "DamnedData", "GUI", "TerrorImages");
 
         if (!Directory.Exists(directoryToMake))
         {
@@ -501,7 +501,7 @@ public class DamnedPackage
 
     private void CreateObjectsDirectory()
     {
-        string directoryToMake = Path.Combine(tempDirectory, "DamnedData", "Resources", "Objects");
+        string directoryToMake = Path.Combine(TempDirectory, "DamnedData", "Resources", "Objects");
 
         if (!Directory.Exists(directoryToMake))
         {

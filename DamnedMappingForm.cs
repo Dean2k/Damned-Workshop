@@ -88,12 +88,12 @@ namespace DamnedWorkshop
                 return;
             }
 
-            if (damnedNewStage.loadingImagePath == String.Empty)
+            if (damnedNewStage.LoadingImagePath == String.Empty)
             {
-                damnedNewStage.count++;
+                damnedNewStage.Count++;
             }
 
-            damnedNewStage.loadingImagePath = loadingImage;
+            damnedNewStage.LoadingImagePath = loadingImage;
             buttonAddStageToList.Enabled = true;
             checkBoxCustomObjects.Enabled = true;
 
@@ -103,7 +103,7 @@ namespace DamnedWorkshop
                 buttonSelectObjectsForStage.Enabled = true;
             }
 
-            labelLoadingScreenImage.Text = Path.GetFileName(damnedNewStage.loadingImagePath);
+            labelLoadingScreenImage.Text = Path.GetFileName(damnedNewStage.LoadingImagePath);
             labelLoadingScreenImage.ForeColor = Color.FromArgb(255, 168, 38);
 
         }
@@ -142,13 +142,13 @@ namespace DamnedWorkshop
                 return;
             }
 
-            if (damnedNewStage.lobbyImageButtonPath == String.Empty)
+            if (damnedNewStage.LobbyImageButtonPath == String.Empty)
             {
-                damnedNewStage.count++;
+                damnedNewStage.Count++;
             }
 
-            damnedNewStage.lobbyImageButtonPath = buttonImage;
-            labelLobbyButtonPicture.Text = Path.GetFileName(damnedNewStage.lobbyImageButtonPath);
+            damnedNewStage.LobbyImageButtonPath = buttonImage;
+            labelLobbyButtonPicture.Text = Path.GetFileName(damnedNewStage.LobbyImageButtonPath);
             labelLobbyButtonPicture.ForeColor = Color.FromArgb(255, 168, 38);
             buttonSelectHighlightedLobbyButtons.Enabled = true;
             pictureDamnedButtonLobbyPicture.ImageLocation = buttonImage;
@@ -157,7 +157,7 @@ namespace DamnedWorkshop
         private void RefreshDamnedStagesList(bool afterRemoving = false)
         {
             damnedStagesTextBox.Clear();
-            List<string> sortedStages = new List<string>(damnedMaps.stages);
+            List<string> sortedStages = new List<string>(damnedMaps.Stages);
             List<string> newSortedStages = new List<string>(damnedNewStagesList.Count);
             List<string> stagesToBeRemoved = new List<string>(damnedRemoveStagesList.Count);
 
@@ -170,7 +170,7 @@ namespace DamnedWorkshop
 
             for (int i = 0; i < damnedNewStagesList.Count; i++)
             {
-                string stage = Path.GetFileNameWithoutExtension(damnedNewStagesList[i].newStagePath);
+                string stage = Path.GetFileNameWithoutExtension(damnedNewStagesList[i].NewStagePath);
                 string modifiedStageName = stage.Replace("_", " ");
                 sortedStages.Add(modifiedStageName);
                 newSortedStages.Add(modifiedStageName);
@@ -178,7 +178,7 @@ namespace DamnedWorkshop
 
             for (int i = 0; i < damnedRemoveStagesList.Count; i++)
             {
-                string stage = Path.GetFileNameWithoutExtension(damnedRemoveStagesList[i].stagePath);
+                string stage = Path.GetFileNameWithoutExtension(damnedRemoveStagesList[i].StagePath);
                 string modifiedStageName = stage.Replace("_", " ");
                 stagesToBeRemoved.Add(modifiedStageName);
             }
@@ -221,7 +221,7 @@ namespace DamnedWorkshop
 
             if (remove)
             {
-                dialog.InitialDirectory = damnedMaps.stagesAndScenesDirectory;
+                dialog.InitialDirectory = damnedMaps.StagesAndScenesDirectory;
             }
 
             dialog.Filter = "Stage Files (*.stage)|*.stage";
@@ -255,7 +255,7 @@ namespace DamnedWorkshop
                     return;
                 }
 
-                damnedRemoveStage.stagePath = stagePath;
+                damnedRemoveStage.StagePath = stagePath;
                 string newLabelText = Path.GetFileNameWithoutExtension(stage).Replace("_", " ");
                 labelMapToRemove.Text = newLabelText;
                 labelMapToRemove.ForeColor = Color.FromArgb(255, 168, 38);
@@ -281,12 +281,12 @@ namespace DamnedWorkshop
 
                 }
 
-                if (damnedNewStage.newStagePath == String.Empty)
+                if (damnedNewStage.NewStagePath == String.Empty)
                 {
-                    damnedNewStage.count++;
+                    damnedNewStage.Count++;
                 }
 
-                damnedNewStage.newStagePath = stagePath;
+                damnedNewStage.NewStagePath = stagePath;
                 string newLabelText = stage.Replace("_", " ").Remove(stage.IndexOf("."), 6);
                 labelMapToAdd.Text = newLabelText;
                 labelMapToAdd.ForeColor = Color.FromArgb(255, 168, 38);
@@ -305,7 +305,7 @@ namespace DamnedWorkshop
 
             if (remove)
             {
-                dialog.InitialDirectory = damnedMaps.stagesAndScenesDirectory;
+                dialog.InitialDirectory = damnedMaps.StagesAndScenesDirectory;
 
             }
 
@@ -344,7 +344,7 @@ namespace DamnedWorkshop
 
                 for (int i = 0; i < damnedRemoveStagesList.Count; i++)
                 {
-                    string stageNameInList = Path.GetFileNameWithoutExtension(damnedRemoveStagesList[i].scenePath).Replace("_", " ");
+                    string stageNameInList = Path.GetFileNameWithoutExtension(damnedRemoveStagesList[i].ScenePath).Replace("_", " ");
                     string currentStage = Path.GetFileNameWithoutExtension(scenePath).Replace("_", " ");
 
                     if (String.Compare(currentStage, stageNameInList, true) == 0)
@@ -354,7 +354,7 @@ namespace DamnedWorkshop
                     }
                 }
 
-                damnedRemoveStage.scenePath = scenePath;
+                damnedRemoveStage.ScenePath = scenePath;
                 damnedRemoveStagesList.Add(new DamnedRemoveStage(damnedRemoveStage));
                 buttonSelectSceneToRemove.Enabled = false;
                 labelSelectSceneFileToRemove.Text = "Choose another scene file to remove with a stage:";
@@ -362,7 +362,7 @@ namespace DamnedWorkshop
                 labelMapToRemove.ForeColor = Color.White;
                 buttonModifyStages.Enabled = true;
                 changesMade = true;
-                string stageToMark = Path.GetFileNameWithoutExtension(damnedRemoveStage.stagePath).Replace("_", " ");
+                string stageToMark = Path.GetFileNameWithoutExtension(damnedRemoveStage.StagePath).Replace("_", " ");
                 MarkStage(stageToMark, Color.Red);
             }
 
@@ -377,12 +377,12 @@ namespace DamnedWorkshop
 
                 }
 
-                if (damnedNewStage.newScenePath == String.Empty)
+                if (damnedNewStage.NewScenePath == String.Empty)
                 {
-                    damnedNewStage.count++;
+                    damnedNewStage.Count++;
                 }
 
-                damnedNewStage.newScenePath = scenePath;
+                damnedNewStage.NewScenePath = scenePath;
                 labelScene.Text = sceneName;
                 labelScene.ForeColor = Color.FromArgb(255, 168, 38);
                 changesMade = true;
@@ -457,9 +457,9 @@ namespace DamnedWorkshop
 
         private void ButtonModifyStages_Click(object sender, EventArgs e)
         {
-            if (damnedNewStage.count > 0)
+            if (damnedNewStage.Count > 0)
             {
-                if (damnedNewStage.count != 5)
+                if (damnedNewStage.Count != 5)
                 {
                     MessageBox.Show("You did not select a loading screen image or a lobby button image for your new stages(s). Finish selecting those first before adding them into the game.", "Finish Selecting", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -522,12 +522,12 @@ namespace DamnedWorkshop
                 return;
             }
 
-            if (damnedNewStage.lobbyImageButtonHighlightedPath == String.Empty)
+            if (damnedNewStage.LobbyImageButtonHighlightedPath == String.Empty)
             {
-                damnedNewStage.count++;
+                damnedNewStage.Count++;
             }
 
-            damnedNewStage.lobbyImageButtonHighlightedPath = dialog.FileName;
+            damnedNewStage.LobbyImageButtonHighlightedPath = dialog.FileName;
             pictureLobbyButtonHighlightedExample.ImageLocation = dialog.FileName;
             labelSelectedHighlightedButton.Text = Path.GetFileName(dialog.FileName);
             labelSelectedHighlightedButton.ForeColor = Color.FromArgb(255, 168, 38);
@@ -619,8 +619,8 @@ namespace DamnedWorkshop
 
             if (!package.Check(tempArchiveLocation))
             {
-                Directory.Delete(package.tempDirectory, true);
-                MessageBox.Show(package.reasonForFailedCheck, "Failed Check", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Directory.Delete(package.TempDirectory, true);
+                MessageBox.Show(package.ReasonForFailedCheck, "Failed Check", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -628,20 +628,20 @@ namespace DamnedWorkshop
 
             damnedNewStage = new DamnedNewStage()
             {
-                loadingImagePath = package.loadingImagePath,
-                lobbyImageButtonHighlightedPath = package.lobbyButtonImageHighlightedPath,
-                hasObjects = package.hasObjects,
-                newObjectsPath = package.objectsPath,
-                newStagePath = package.stagePath,
-                newScenePath = package.scenePath,
-                lobbyImageButtonPath = package.lobbyButtonImagePath
+                LoadingImagePath = package.LoadingImagePath,
+                LobbyImageButtonHighlightedPath = package.LobbyButtonImageHighlightedPath,
+                HasObjects = package.HasObjects,
+                NewObjectsPath = package.objectsPath,
+                NewStagePath = package.StagePath,
+                NewScenePath = package.ScenePath,
+                LobbyImageButtonPath = package.LobbyButtonImagePath
             };
 
 
-            if (damnedMaps.StageExists(Path.GetFileName(damnedNewStage.newStagePath)))
+            if (damnedMaps.StageExists(Path.GetFileName(damnedNewStage.NewStagePath)))
             {
-                string stageName = Path.GetFileNameWithoutExtension(damnedNewStage.newStagePath).Replace("_", " ");
-                Directory.Delete(package.tempDirectory, true);
+                string stageName = Path.GetFileNameWithoutExtension(damnedNewStage.NewStagePath).Replace("_", " ");
+                Directory.Delete(package.TempDirectory, true);
                 Reset();
                 MessageBox.Show(String.Format("This stage \"{0}\" is already installed in the game. Please select another stage", stageName), "Stage already installed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -650,41 +650,41 @@ namespace DamnedWorkshop
             
             for (int i = 0; i < damnedNewStagesList.Count; i++)
             {
-                string stageNameInList = Path.GetFileName(damnedNewStagesList[i].newStagePath);
-                string currentStageName = Path.GetFileName(damnedNewStage.newStagePath);
+                string stageNameInList = Path.GetFileName(damnedNewStagesList[i].NewStagePath);
+                string currentStageName = Path.GetFileName(damnedNewStage.NewStagePath);
 
                 if (String.Compare(stageNameInList, currentStageName, true) == 0)
                 {
-                    string stageNameFormatted = Path.GetFileNameWithoutExtension(damnedNewStage.newStagePath).Replace("_", " ");
+                    string stageNameFormatted = Path.GetFileNameWithoutExtension(damnedNewStage.NewStagePath).Replace("_", " ");
                     MessageBox.Show($"The selected package for the stage \"{stageNameFormatted}\" is already selected to be added into the game. Please select another", "Stage already selected to be added", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     damnedNewStage.Clear();
                     return;
                 }
             }
 
-            if (package.objectsCount > 0)
+            if (package.ObjectsCount > 0)
             {
-                labelObjectsCount.Text = String.Format("{0} new objects will be added.", package.objectsCount);
+                labelObjectsCount.Text = String.Format("{0} new objects will be added.", package.ObjectsCount);
                 labelObjectsCount.ForeColor = Color.FromArgb(255, 168, 38);
                 checkBoxCustomObjects.Checked = true;
                 checkBoxCustomObjects.Enabled = true;
                 buttonSelectObjectsForStage.Enabled = true;
             }
 
-            labelLoadingScreenImage.Text = Path.GetFileName(damnedNewStage.loadingImagePath);
+            labelLoadingScreenImage.Text = Path.GetFileName(damnedNewStage.LoadingImagePath);
             labelLoadingScreenImage.ForeColor = Color.FromArgb(255, 168, 38);
-            labelLobbyButtonPicture.Text = Path.GetFileName(damnedNewStage.lobbyImageButtonPath);
+            labelLobbyButtonPicture.Text = Path.GetFileName(damnedNewStage.LobbyImageButtonPath);
             labelLobbyButtonPicture.ForeColor = Color.FromArgb(255, 168, 38);
-            labelSelectedHighlightedButton.Text = Path.GetFileName(damnedNewStage.lobbyImageButtonHighlightedPath);
+            labelSelectedHighlightedButton.Text = Path.GetFileName(damnedNewStage.LobbyImageButtonHighlightedPath);
             labelSelectedHighlightedButton.ForeColor = Color.FromArgb(255, 168, 38);
-            labelScene.Text = Path.GetFileName(damnedNewStage.newScenePath);
+            labelScene.Text = Path.GetFileName(damnedNewStage.NewScenePath);
             labelScene.ForeColor = Color.FromArgb(255, 168, 38);
-            labelMapToAdd.Text = Path.GetFileNameWithoutExtension(damnedNewStage.newStagePath).Replace("_", " ");
+            labelMapToAdd.Text = Path.GetFileNameWithoutExtension(damnedNewStage.NewStagePath).Replace("_", " ");
             labelMapToAdd.ForeColor = Color.FromArgb(255, 168, 38);
-            pictureDamnedButtonLobbyPicture.ImageLocation = damnedNewStage.lobbyImageButtonPath;
-            pictureLobbyButtonHighlightedExample.ImageLocation = damnedNewStage.lobbyImageButtonHighlightedPath;
+            pictureDamnedButtonLobbyPicture.ImageLocation = damnedNewStage.LobbyImageButtonPath;
+            pictureLobbyButtonHighlightedExample.ImageLocation = damnedNewStage.LobbyImageButtonHighlightedPath;
 
-            damnedNewStage.count = 5;
+            damnedNewStage.Count = 5;
             changesMade = true;
             buttonSelectHighlightedLobbyButtons.Enabled = true;
             buttonSelectLobbyButtonPicture.Enabled = true;
@@ -722,7 +722,7 @@ namespace DamnedWorkshop
             else if (!checkBoxCustomObjects.Checked)
             {
                 buttonAddStageToList.Enabled = true;
-                damnedNewStage.newObjectsPath.Clear();
+                damnedNewStage.NewObjectsPath.Clear();
                 labelObjectsCount.Text = "Number of new objects will be shown here.";
                 labelObjectsCount.ForeColor = Color.White;
                 buttonSelectObjectsForStage.Enabled = false;
@@ -758,10 +758,10 @@ namespace DamnedWorkshop
 
             foreach (string i in selectedObjects)
             {
-                damnedNewStage.newObjectsPath.Add(i);
+                damnedNewStage.NewObjectsPath.Add(i);
             }
 
-            damnedNewStage.hasObjects = true;
+            damnedNewStage.HasObjects = true;
             buttonAddStageToList.Enabled = true;
         }
 
