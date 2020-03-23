@@ -1,7 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
+using System.Security.Principal;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DamnedWorkshop
@@ -69,7 +73,6 @@ namespace DamnedWorkshop
 
         private void ButtonSelectDamnedDirectory_Click(object sender, EventArgs e)
         {
-
         }
 
         private void EnableControls()
@@ -86,13 +89,49 @@ namespace DamnedWorkshop
             browseStagesButton.Enabled = false;
         }
 
-        private void ButtonCheckPath_Click(object sender, EventArgs e)
+        public static bool IsAdministrator()
         {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
 
+        private void CheckFont()
+        {
+            bool fontInstalled = false;
+            var fontsCollection = new InstalledFontCollection();
+            foreach (var fontFamily in fontsCollection.Families)
+            {
+                if (fontFamily.Name == "Romance Fatal Serif Std")
+                {
+                    fontInstalled = true;
+                    break;
+                }
+            }
+
+            if (!fontInstalled)
+            {
+                if (IsAdministrator())
+                {
+                    DialogResult fontQuestion = MessageBox.Show("Do you want to install the custom font for this application?", "Font Install", MessageBoxButtons.YesNo);
+                    if (fontQuestion == DialogResult.Yes)
+                    {
+                        RegisterFont.RegisterFontByPath("RomFatal.TTF");
+                        Thread.Sleep(1000);
+                        Process.Start(Application.ExecutablePath);
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You need to run this program as an admin if you want it to try install the font for you.");
+                }
+            }
         }
 
         private void LoadSettings()
         {
+            CheckFont();
             string setting = Properties.Settings.Default.damnedGamePath;
             txtInstallLocation.Text = directory;
 
